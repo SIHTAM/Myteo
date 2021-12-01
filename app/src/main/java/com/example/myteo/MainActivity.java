@@ -1,6 +1,7 @@
 package com.example.myteo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -14,13 +15,26 @@ public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout homeRL;
     private ProgressBar loadingPB;
-    private TextView cityNameTV;
+    private TextView cityNameTV, temperatureTV, conditionTV;
     private TextInputEditText cityEdt;
-    private ImageView backIV, iconIV;
+    private ImageView backIV, iconIV, searchIV;
+    private RecyclerView weatherRV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        homeRL = findViewById(R.id.odRLHome);
+        loadingPB = findViewById(R.id.idPBLoading);
+        cityNameTV = findViewById(R.id.idTVCityName);
+        temperatureTV = findViewById(R.id.idTVTemperature);
+        conditionTV = findViewById(R.id.idTVCondition);
+        weatherRV = findViewById(R.id.idRVWeather);
+        cityEdt = findViewById(R.id.idEditCity);
+        backIV = findViewById(R.id.idIVBack);
+        iconIV = findViewById(R.id.idIVIcon);
+        searchIV = findViewById(R.id.idIVSearch);
+
     }
 }
