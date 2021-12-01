@@ -3,8 +3,20 @@ package com.example.myteo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RelativeLayout homeRL;
+    private ProgressBar loadingPB;
+    private TextView cityNameTV;
+    private TextInputEditText cityEdt;
+    private ImageView backIV, iconIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
