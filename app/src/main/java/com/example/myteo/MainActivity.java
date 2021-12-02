@@ -29,7 +29,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -146,6 +149,33 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 loadingPB.setVisibility(View.GONE);
                 homeRL.setVisibility(View.VISIBLE);
+                weatherRVModalArrayList.clear();
+                try {
+                    String temperature = response.getJSONObject("current").getString("temp_c");
+                    temperatureTV.setText(temperature + "°c");
+                    int isDay = response.getJSONObject("current").getInt("is_day");
+                    String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                    String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
+                    Picasso.get().load("http".concat(conditionIcon)).into(iconIV);
+                    conditionTV.setText(condition);
+
+                    if(isDay==1) {
+                        //morning
+                        Picasso.get().load("https://images.unsplash.com/photo-1566228015668-4c45dbc4e2f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bW9ybmluZyUyMGNsb3VkfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60").into(backIV);
+                    } else {
+                        //night
+                        Picasso.get().load("https://images.unsplash.com/photo-1530508777238-14544088c3ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pZ2h0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60").into(backIV);
+                    }
+
+                    JSONObject forecastObj = response.getJSONObject("forecast");
+                    JSONObject forecastO = forecastObj.getJSONArray("forecastday").getJSONObject(0);
+                    JSONArray hourArray = forecastO.getJSONArray("hour");
+
+                    for(int i= 0;)
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         }, new Response.ErrorListener() {
