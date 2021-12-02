@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -88,13 +89,17 @@ public class MainActivity extends AppCompatActivity {
         cityName = getCityName(location.getLongitude(), location.getLatitude());
         getWeatherInfo(cityName);
 
-        searchIV.setOnClickListener(v -> {
-            String city = cityEdt.getText().toString();
-            if(city.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please enter city name", Toast.LENGTH_SHORT);
-            } else {
-                cityNameTV.setText(cityName);
-                getWeatherInfo(city);
+
+        searchIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String city = cityEdt.getText().toString();
+                if(city.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter city name", Toast.LENGTH_SHORT).show();
+                } else {
+                    cityNameTV.setText(cityName);
+                    getWeatherInfo(city);
+                }
             }
         });
 
@@ -142,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         cityNameTV.setText(cityName);
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(JSONObject response) {
                 loadingPB.setVisibility(View.GONE);
