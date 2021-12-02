@@ -88,16 +88,13 @@ public class MainActivity extends AppCompatActivity {
         cityName = getCityName(location.getLongitude(), location.getLatitude());
         getWeatherInfo(cityName);
 
-        searchIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String city = cityEdt.getText().toString();
-                if(city.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please enter city name", Toast.LENGTH_SHORT);
-                } else {
-                    cityNameTV.setText(cityName);
-                    getWeatherInfo(city);
-                }
+        searchIV.setOnClickListener(v -> {
+            String city = cityEdt.getText().toString();
+            if(city.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter city name", Toast.LENGTH_SHORT);
+            } else {
+                cityNameTV.setText(cityName);
+                getWeatherInfo(city);
             }
         });
 
